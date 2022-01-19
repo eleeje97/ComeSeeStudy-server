@@ -11,17 +11,18 @@ import javax.persistence.*;
 @Entity(name = "ATTR_CONTENT_TB")
 public class AttrContentEntity {
     @Id
-    private int content_id;
+    @Column(name = "content_id")
+    private int contentId;
 
-    @JoinColumn
-    private int attr_id;
+    @JoinColumn(name = "attr_id")
+    private int attrId;
 
-    @Column
-    private int page_no;
+    @Column(name = "page_no")
+    private int pageNo;
 
-    @Column
-    private String content_title;
+    @Column(name = "content_title")
+    private String contentTitle;
 
-    @Column
-    private String content_desc;
+    @Column(name = "content_desc")
+    private String contentDesc;
 }

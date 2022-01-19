@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AttributeRepository extends JpaRepository<AttributeEntity, Integer> {
 
+    AttributeEntity findByAttrName(String attr_name);
 }

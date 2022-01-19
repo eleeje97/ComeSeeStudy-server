@@ -5,7 +5,6 @@ import org.m2c.entity.*;
 import org.m2c.repo.*;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,9 +14,9 @@ public class APIController {
     private final AttrContentRepository attrContentRepository;
     private final QuizRepository quizRepository;
 
-    @GetMapping("/test")
-    public List<AttributeEntity> findAllAttribute() {
-        return attributeRepository.findAll();
+    @GetMapping("/main")
+    public AttributeEntity getMainPage(@RequestParam("attr") String attr_name) {
+        return attributeRepository.findByAttrName(attr_name);
     }
 
 }

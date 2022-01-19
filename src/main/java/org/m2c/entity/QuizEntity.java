@@ -11,18 +11,18 @@ import javax.persistence.*;
 @Entity(name = "QUIZ_TB")
 public class QuizEntity {
     @Id
-    @JoinColumn
-    private int content_id;
+    @JoinColumn(name = "content_id")
+    private int contentId;
 
-    @Column
-    private String quiz_question;
+    @Column(name = "quiz_question")
+    private String quizQuestion;
 
-    @Column
-    private String quiz_answer_code;
+    @Column(name = "quiz_answer_code")
+    private String quizAnswerCode;
 
-    @Column
-    private String quiz_setting;
+    @Column(name = "quiz_setting")
+    private String quizSetting;
 
-    @Column
-    private int quiz_num;
+    @Column(name = "quiz_num")
+    private int quizNum;
 }

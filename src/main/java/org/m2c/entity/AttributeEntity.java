@@ -11,12 +11,13 @@ import javax.persistence.*;
 @Entity(name = "ATTRIBUTE_TB")
 public class AttributeEntity {
     @Id
-    private int attr_id;
+    @Column(name = "attr_id")
+    private int attrId;
 
-    @Column
-    private String attr_name;
+    @Column(name = "attr_name")
+    private String attrName;
 
-    @Column
-    private String attr_main_title;
+    @Column(name = "attr_main_title")
+    private String attrMainTitle;
     
 }
