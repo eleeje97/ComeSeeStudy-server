@@ -24,12 +24,14 @@ public class APIController {
         prev = prev == 0 ? total : prev ;
 
         int next = (attributeEntity.getAttrId() + 1)%total;
-        next = next == 0 ? 1 : next;
+        next = next == 0 ? total : next;
 
         MainPageResponse response = new MainPageResponse(attributeEntity.getAttrName(),
                 attributeEntity.getAttrMainTitle(),
                 attributeRepository.findById(prev).get().getAttrName(),
                 attributeRepository.findById(next).get().getAttrName());
+
+        System.out.println("Requested URL: /css/main?attr=" + attr_name);
 
         return response;
     }
