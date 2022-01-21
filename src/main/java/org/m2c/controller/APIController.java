@@ -23,8 +23,8 @@ public class APIController {
         int prev = attributeEntity.getAttrId() - 1;
         prev = prev == 0 ? total : prev ;
 
-        int next = (attributeEntity.getAttrId() + 1)%total;
-        next = next == 0 ? total : next;
+        int next = attributeEntity.getAttrId() + 1;
+        next = next > total ? 1 : next;
 
         MainPageResponse response = new MainPageResponse(attributeEntity.getAttrName(),
                 attributeEntity.getAttrMainTitle(),
