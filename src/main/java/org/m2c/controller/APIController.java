@@ -47,7 +47,7 @@ public class APIController {
 
 
         HashMap<String, String> requiredElements = getRequiredElements(attrContentEntity);
-        List<String> settingCodes = new ArrayList<>();
+        List<String> settingCodes = getSettingCodes(quizEntity);
 
         LearningPageResponse response = new LearningPageResponse(attr_name,
                 attrContentEntity.getPageNo(),
@@ -77,5 +77,32 @@ public class APIController {
         return requiredElements;
     }
 
+
+    public List<String> getSettingCodes(QuizEntity quizEntity) {
+        List<String> settingCodes = new ArrayList<>();
+        int quizNum = quizEntity.getQuizNum();
+        String quizElementNamesStrData = quizEntity.getQuizElementNames();
+        String[] quizElementNamesArray = quizElementNamesStrData.split(",");
+        String quizSettingStrData = quizEntity.getQuizSetting();
+        String[] quizSettingArray = quizSettingStrData.split("&&&");
+
+        for (int i = 0; i < quizNum; i++) {
+            String str;
+            if (i != 0) {
+                str = "}\n";
+            } else {
+                str = "";
+            }
+            str += "#" + quizElementNamesArray[i] + " {\n\t" + quizSettingArray[i];
+            System.out.println(str);
+            System.out.println("########### input창 ##########");
+            settingCodes.add(str);
+        }
+        System.out.println("}");
+        settingCodes.add("}");
+        
+        
+        return settingCodes;
+    }
 
 }
