@@ -9,20 +9,20 @@ public class LearningPageResponse {
     int totalPage; // 해당 속성의 총 페이지 수
     String contentTitle;
     String contentDesc;
-    String quiz_value; // 문제에서 요구하는 정확한 수치 값
+    String quizValue; // 문제에서 요구하는 정확한 수치 값
     HashMap requiredElements; // 현재 페이지에서 필요한 요소들 이름
-    int quiz_num; // 현재 페이지에서의 문제 수
+    int quizNum; // 현재 페이지에서의 문제 수
     List<String> settingCodes; // 현재 페이지에 세팅할 코드 (배열의 크기는 quizNum + 1)
 
-    public LearningPageResponse(String attrName, int pageNo, int totalPage, String contentTitle, String contentDesc, String quiz_value, HashMap requiredElements, int quiz_num, List<String> settingCodes) {
+    public LearningPageResponse(String attrName, int pageNo, int totalPage, String contentTitle, String contentDesc, String quizValue, HashMap requiredElements, int quizNum, List<String> settingCodes) {
         this.attrName = attrName;
         this.pageNo = pageNo;
         this.totalPage = totalPage;
         this.contentTitle = contentTitle;
         this.contentDesc = contentDesc;
-        this.quiz_value = quiz_value;
+        this.quizValue = quizValue;
         this.requiredElements = requiredElements;
-        this.quiz_num = quiz_num;
+        this.quizNum = quizNum;
         this.settingCodes = settingCodes;
     }
 
@@ -67,12 +67,12 @@ public class LearningPageResponse {
         this.contentDesc = contentDesc;
     }
 
-    public String getQuiz_value() {
-        return quiz_value;
+    public String getQuizValue() {
+        return quizValue;
     }
 
-    public void setQuiz_value(String quiz_value) {
-        this.quiz_value = quiz_value;
+    public void setQuizValue(String quizValue) {
+        this.quizValue = quizValue;
     }
 
     public HashMap getRequiredElements() {
@@ -83,12 +83,12 @@ public class LearningPageResponse {
         this.requiredElements = requiredElements;
     }
 
-    public int getQuiz_num() {
-        return quiz_num;
+    public int getQuizNum() {
+        return quizNum;
     }
 
-    public void setQuiz_num(int quiz_num) {
-        this.quiz_num = quiz_num;
+    public void setQuizNum(int quizNum) {
+        this.quizNum = quizNum;
     }
 
     public List<String> getSettingCodes() {
