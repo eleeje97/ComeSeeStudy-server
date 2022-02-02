@@ -90,20 +90,25 @@ public class APIController {
 
         for (int i = 0; i < quizNum; i++) {
             String str;
-            if (i != 0) {
-                str = "}\n";
-            } else {
+            if (i == 0) {
                 str = "";
+            } else {
+                str = "}\n";
             }
             str += "#" + quizElementNamesArray[i] + " {";
             if (quizSettingArray.length > i) {
-                str += "\n\t" + quizSettingArray[i];
+                String[] codeArray = quizSettingArray[i].split(";");
+                for (String s: codeArray) {
+                    str += "\n\t" + s + ";";
+                }
             }
             settingCodes.add(str);
         }
         settingCodes.add("}");
-        
-        
+
+        for (String cmd:settingCodes) {
+            System.out.println(cmd);
+        }
         return settingCodes;
     }
 
