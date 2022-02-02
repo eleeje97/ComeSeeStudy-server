@@ -94,11 +94,8 @@ public class APIController {
                 str = "";
             }
             str += "#" + quizElementNamesArray[i] + " {\n\t" + quizSettingArray[i];
-            System.out.println(str);
-            System.out.println("########### input창 ##########");
             settingCodes.add(str);
         }
-        System.out.println("}");
         settingCodes.add("}");
         
         
