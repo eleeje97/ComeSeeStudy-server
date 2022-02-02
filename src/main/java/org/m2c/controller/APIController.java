@@ -93,7 +93,10 @@ public class APIController {
             } else {
                 str = "";
             }
-            str += "#" + quizElementNamesArray[i] + " {\n\t" + quizSettingArray[i];
+            str += "#" + quizElementNamesArray[i] + " {";
+            if (quizSettingArray.length > i) {
+                str += "\n\t" + quizSettingArray[i];
+            }
             settingCodes.add(str);
         }
         settingCodes.add("}");
