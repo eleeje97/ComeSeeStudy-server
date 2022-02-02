@@ -13,8 +13,9 @@ public class LearningPageResponse {
     HashMap requiredElements; // 현재 페이지에서 필요한 요소들 이름
     int quizNum; // 현재 페이지에서의 문제 수
     List<String> settingCodes; // 현재 페이지에 세팅할 코드 (배열의 크기는 quizNum + 1)
+    HashMap answerCodes; // 정답 코드
 
-    public LearningPageResponse(String attrName, int pageNo, int totalPage, String contentTitle, String contentDesc, String quizValue, HashMap requiredElements, int quizNum, List<String> settingCodes) {
+    public LearningPageResponse(String attrName, int pageNo, int totalPage, String contentTitle, String contentDesc, String quizValue, HashMap requiredElements, int quizNum, List<String> settingCodes, HashMap answerCodes) {
         this.attrName = attrName;
         this.pageNo = pageNo;
         this.totalPage = totalPage;
@@ -24,6 +25,7 @@ public class LearningPageResponse {
         this.requiredElements = requiredElements;
         this.quizNum = quizNum;
         this.settingCodes = settingCodes;
+        this.answerCodes = answerCodes;
     }
 
 
@@ -97,5 +99,13 @@ public class LearningPageResponse {
 
     public void setSettingCodes(List<String> settingCodes) {
         this.settingCodes = settingCodes;
+    }
+
+    public HashMap getAnswerCodes() {
+        return answerCodes;
+    }
+
+    public void setAnswerCodes(HashMap answerCodes) {
+        this.answerCodes = answerCodes;
     }
 }

@@ -48,6 +48,7 @@ public class APIController {
 
         HashMap<String, String> requiredElements = getRequiredElements(attrContentEntity);
         List<String> settingCodes = getSettingCodes(quizEntity);
+        HashMap<String, String> answerCodes = getAnswerCodes(quizEntity, requiredElements);
 
         LearningPageResponse response = new LearningPageResponse(attr_name,
                 attrContentEntity.getPageNo(),
@@ -57,7 +58,8 @@ public class APIController {
                 quizEntity.getQuizValue(),
                 requiredElements,
                 quizEntity.getQuizNum(),
-                settingCodes);
+                settingCodes,
+                answerCodes);
 
         System.out.println("Requested URL: /css/learning?attr=" + attr_name + "&pageNo=" + pageNo + " contentId: " + contentId);
 
@@ -103,6 +105,21 @@ public class APIController {
         
         
         return settingCodes;
+    }
+
+
+    public HashMap<String, String> getAnswerCodes(QuizEntity quizEntity, HashMap<String, String> requiredElements) {
+        HashMap<String, String> answerCodes = new HashMap<>();
+        String quizAnswerCodesStrData = quizEntity.getQuizAnswerCode();
+        String[] quizAnswerCodesArray = quizAnswerCodesStrData.split("&&&");
+
+        for (String key : requiredElements.keySet()) {
+            if (!key.equals("bg")) {
+                answerCodes.put(key,quizAnswerCodesArray[answerCodes.size()]);
+            }
+        }
+
+        return answerCodes;
     }
 
 }
