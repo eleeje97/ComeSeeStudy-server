@@ -1,10 +1,12 @@
 package org.m2c.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.m2c.dto.MainPageResponse;
+import org.m2c.dto.*;
 import org.m2c.entity.*;
 import org.m2c.repo.*;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.*;
 
 
 @RestController
@@ -35,5 +37,45 @@ public class APIController {
 
         return response;
     }
+
+    @GetMapping("/learning")
+    public LearningPageResponse getLearningPage(@RequestParam("attr") String attr_name, @RequestParam("pageNo") int pageNo) {
+        int attrId = attributeRepository.findByAttrName(attr_name).getAttrId();
+        int contentId = (attrId * 100) + pageNo;
+        AttrContentEntity attrContentEntity = attrContentRepository.findById(contentId).get();
+        QuizEntity quizEntity = quizRepository.findById(contentId).get();
+
+
+        HashMap<String, String> requiredElements = getRequiredElements(attrContentEntity);
+        List<String> settingCodes = new ArrayList<>();
+
+        LearningPageResponse response = new LearningPageResponse(attr_name,
+                attrContentEntity.getPageNo(),
+                attrContentRepository.countAllByAttrId(attrId),
+                attrContentEntity.getContentTitle(),
+                attrContentEntity.getContentDesc(),
+                quizEntity.getQuizValue(),
+                requiredElements,
+                quizEntity.getQuizNum(),
+                settingCodes);
+
+        System.out.println("Requested URL: /css/learning?attr=" + attr_name + "&pageNo=" + pageNo + " contentId: " + contentId);
+
+        return response;
+    }
+
+
+    public HashMap<String, String> getRequiredElements(AttrContentEntity attrContentEntity) {
+        HashMap<String, String> requiredElements = new HashMap<>();
+        String requiredElementsStrData = attrContentEntity.getRequiredElements();
+        String[] requiredElementsArray = requiredElementsStrData.split(",");
+
+        for (String str:requiredElementsArray) {
+            requiredElements.put(str.substring(str.length()-2), str);
+        }
+
+        return requiredElements;
+    }
+
 
 }

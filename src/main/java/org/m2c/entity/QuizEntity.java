@@ -14,8 +14,8 @@ public class QuizEntity {
     @JoinColumn(name = "content_id")
     private int contentId;
 
-    @Column(name = "quiz_question")
-    private String quizQuestion;
+    @Column(name = "quiz_value")
+    private String quizValue;
 
     @Column(name = "quiz_answer_code")
     private String quizAnswerCode;
@@ -25,4 +25,7 @@ public class QuizEntity {
 
     @Column(name = "quiz_num")
     private int quizNum;
+
+    @Column(name = "quiz_element_names")
+    private String quizElementNames;
 }

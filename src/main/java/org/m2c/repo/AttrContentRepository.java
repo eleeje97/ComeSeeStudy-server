@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AttrContentRepository extends JpaRepository<AttrContentEntity, Integer> {
-
+    int countAllByAttrId(int attrId);
 }

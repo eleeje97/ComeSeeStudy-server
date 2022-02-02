@@ -25,4 +25,7 @@ public class AttrContentEntity {
 
     @Column(name = "content_desc")
     private String contentDesc;
+
+    @Column(name = "required_elements")
+    private String requiredElements;
 }
