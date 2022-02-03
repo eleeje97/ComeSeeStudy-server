@@ -87,21 +87,19 @@ public class APIController {
                 userAnswersArray.add(userCode.substring(0, userCode.indexOf(";")+1).replaceAll("\\s", "").toLowerCase());
                 userCode = userCode.substring(userCode.indexOf(";")+1);
             }
-            String answerCode = answerCodes.get(key).replaceAll("\\s", "").toLowerCase();
 
-            Boolean flag;
-            if (userAnswersArray.size() > 0) {
-                flag = true;
-                for (String str:userAnswersArray) {
-                    if (!answerCode.contains(str)) {
-                        flag = false;
-                    }
-                }
-            } else {
-                flag = false;
+            String answerCode = answerCodes.get(key);
+            ArrayList<String> answerCodesArray = new ArrayList<>();
+            while (answerCode.contains(";")) {
+                answerCodesArray.add(answerCode.substring(0, answerCode.indexOf(";")+1).replaceAll("\\s", "").toLowerCase());
+                answerCode = answerCode.substring(answerCode.indexOf(";")+1);
             }
 
-            answerCheck.put(key, flag);
+            if (userAnswersArray.containsAll(answerCodesArray)) {
+                answerCheck.put(key, true);
+            } else {
+                answerCheck.put(key, false);
+            }
         }
 
 
