@@ -17,6 +17,7 @@ public class APIController {
     private final AttrContentRepository attrContentRepository;
     private final QuizRepository quizRepository;
 
+
     @GetMapping("/main")
     public MainPageResponse getMainPage(@RequestParam("attr") String attr_name) {
         AttributeEntity attributeEntity = attributeRepository.findByAttrName(attr_name);
@@ -37,6 +38,7 @@ public class APIController {
 
         return response;
     }
+
 
     @GetMapping("/learning")
     public LearningPageResponse getLearningPage(@RequestParam("attr") String attr_name, @RequestParam("pageNo") int pageNo) {
@@ -66,6 +68,36 @@ public class APIController {
         return response;
     }
 
+
+    @PostMapping("/check")
+    public AnswerCheckResponse checkAnswers(@RequestBody AnswerCheckRequest request) {
+        int attrId = attributeRepository.findByAttrName(request.getAttrName()).getAttrId();
+        int contentId = (attrId * 100) + request.getPageNo();
+        AttrContentEntity attrContentEntity = attrContentRepository.findById(contentId).get();
+        QuizEntity quizEntity = quizRepository.findById(contentId).get();
+        HashMap<String, String> requiredElements = getRequiredElements(attrContentEntity);
+        HashMap<String, String> answerCodes = getAnswerCodes(quizEntity, requiredElements);
+        HashMap<String, String> userAnswers = request.getAnswers();
+        HashMap<String, Boolean> answerCheck = new HashMap<>();
+
+        for (String key : answerCodes.keySet()) {
+            if (userAnswers.get(key).replaceAll("\\s", "").equals(answerCodes.get(key).replaceAll("\\s", ""))) {
+                answerCheck.put(key, true);
+            } else {
+                answerCheck.put(key, false);
+            }
+        }
+
+
+        AnswerCheckResponse response = new AnswerCheckResponse(request.getAttrName(),
+                attrContentEntity.getPageNo(),
+                quizEntity.getQuizNum(),
+                userAnswers,
+                answerCodes,
+                answerCheck);
+
+        return response;
+    }
 
     public HashMap<String, String> getRequiredElements(AttrContentEntity attrContentEntity) {
         HashMap<String, String> requiredElements = new HashMap<>();
