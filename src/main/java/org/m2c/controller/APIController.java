@@ -81,14 +81,27 @@ public class APIController {
         HashMap<String, Boolean> answerCheck = new HashMap<>();
 
         for (String key : answerCodes.keySet()) {
-            String userCode = userAnswers.get(key).replaceAll("\\s", "").toLowerCase();
-            String answerCode =answerCodes.get(key).replaceAll("\\s", "").toLowerCase();
-
-            if (userCode.equals(answerCode)) {
-                answerCheck.put(key, true);
-            } else {
-                answerCheck.put(key, false);
+            String userCode = userAnswers.get(key);
+            ArrayList<String> userAnswersArray = new ArrayList<>();
+            while (userCode.contains(";")) {
+                userAnswersArray.add(userCode.substring(0, userCode.indexOf(";")+1).replaceAll("\\s", "").toLowerCase());
+                userCode = userCode.substring(userCode.indexOf(";")+1);
             }
+            String answerCode = answerCodes.get(key).replaceAll("\\s", "").toLowerCase();
+
+            Boolean flag;
+            if (userAnswersArray.size() > 0) {
+                flag = true;
+                for (String str:userAnswersArray) {
+                    if (!answerCode.contains(str)) {
+                        flag = false;
+                    }
+                }
+            } else {
+                flag = false;
+            }
+
+            answerCheck.put(key, flag);
         }
 
 
