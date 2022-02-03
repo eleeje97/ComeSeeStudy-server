@@ -86,29 +86,41 @@ public class APIController {
         String quizElementNamesStrData = quizEntity.getQuizElementNames();
         String[] quizElementNamesArray = quizElementNamesStrData.split(",");
         String quizSettingStrData = quizEntity.getQuizSetting();
-        String[] quizSettingArray = quizSettingStrData.split("&&&");
+        String[] quizSettingArray;
+        String str = "";
+
+        while (quizSettingStrData.contains("%ETC%")) {
+            String temp = quizSettingStrData.substring(0, quizSettingStrData.indexOf("%ETC%"));
+            str += temp + "\n";
+            quizSettingStrData = quizSettingStrData.substring(temp.length() + 5);
+        }
+
+        if (quizSettingStrData.length() > 0) {
+            quizSettingArray = quizSettingStrData.split("&&&");
+        } else {
+            quizSettingArray = new String[0];
+        }
+
 
         for (int i = 0; i < quizNum; i++) {
-            String str;
-            if (i == 0) {
-                str = "";
-            } else {
+            if (i != 0) {
                 str = "}\n";
             }
             str += "#" + quizElementNamesArray[i] + " {";
             if (quizSettingArray.length > i) {
-                String[] codeArray = quizSettingArray[i].split(";");
+                String[] codeArray = quizSettingArray[i].split("\n");
                 for (String s: codeArray) {
-                    str += "\n\t" + s + ";";
+                    str += "\n\t" + s;
                 }
             }
             settingCodes.add(str);
         }
         settingCodes.add("}");
 
-        for (String cmd:settingCodes) {
-            System.out.println(cmd);
-        }
+//        for (String cmd:settingCodes) {
+//            System.out.println(cmd);
+//        }
+
         return settingCodes;
     }
 
