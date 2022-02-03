@@ -81,7 +81,10 @@ public class APIController {
         HashMap<String, Boolean> answerCheck = new HashMap<>();
 
         for (String key : answerCodes.keySet()) {
-            if (userAnswers.get(key).replaceAll("\\s", "").equals(answerCodes.get(key).replaceAll("\\s", ""))) {
+            String userCode = userAnswers.get(key).replaceAll("\\s", "").toLowerCase();
+            String answerCode =answerCodes.get(key).replaceAll("\\s", "").toLowerCase();
+
+            if (userCode.equals(answerCode)) {
                 answerCheck.put(key, true);
             } else {
                 answerCheck.put(key, false);
@@ -95,6 +98,8 @@ public class APIController {
                 userAnswers,
                 answerCodes,
                 answerCheck);
+
+        System.out.println("Requested URL: /css/check?attr=" + request.getAttrName() + "&pageNo=" + attrContentEntity.getPageNo() + " contentId: " + contentId);
 
         return response;
     }
