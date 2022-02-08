@@ -40,7 +40,7 @@ public class APIController {
     }
 
 
-    @GetMapping("/learning")
+    @GetMapping("/learning/load")
     public LearningPageResponse getLearningPage(@RequestParam("attr") String attr_name, @RequestParam("pageNo") int pageNo) {
         int attrId = attributeRepository.findByAttrName(attr_name).getAttrId();
         int contentId = (attrId * 100) + pageNo;
@@ -69,7 +69,7 @@ public class APIController {
     }
 
 
-    @PostMapping("/check")
+    @PostMapping("/learning/check")
     public AnswerCheckResponse checkAnswers(@RequestBody AnswerCheckRequest request) {
         int attrId = attributeRepository.findByAttrName(request.getAttrName()).getAttrId();
         int contentId = (attrId * 100) + request.getPageNo();
